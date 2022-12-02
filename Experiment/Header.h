@@ -1,7 +1,7 @@
 
 // Jonathan Essapour
 // General Goal: Make a template class that includes various data types or structures
-// such as arrays, linked lists, etc
+// such as arrays and linked lists
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -22,14 +22,14 @@ template<class T>
 class Array {
 	friend class Node<T>;
 	Node<T>** array_nodes; // array of which each slot is linked lists, also had an error earlier that said required template arguements needed <T>
-// https://docs.microsoft.com/en-us/cpp/error-messages/tool-errors/linker-tools-error-lnk2019?view=msvc-170
-// Link is for line below as for what parameters to use for overriding a template ostream 
-template<class T> friend ostream& operator << (ostream& o, const Array<T>& ar); // THIS LINE 
-// line above can also be -> template<typename T> friend ostream& operator << (ostream& o, const Array<T>& ar); 
-template<class T> friend ostream& operator << (ostream& o, Node<T>& n1);
+	// https://docs.microsoft.com/en-us/cpp/error-messages/tool-errors/linker-tools-error-lnk2019?view=msvc-170
+	// Link is for line below as for what parameters to use for overriding a template ostream 
+	template<class T> friend ostream& operator << (ostream& o, const Array<T>& ar); // THIS LINE 
+	// line above can also be -> template<typename T> friend ostream& operator << (ostream& o, const Array<T>& ar); 
+	template<class T> friend ostream& operator << (ostream& o, Node<T>& n1);
 
 
-friend class Node<T>; // Node class can access private memebers of Array
+	friend class Node<T>; // Node class can access private memebers of Array
 
 
 private:
@@ -40,11 +40,11 @@ public:
 
 	// regular array functions
 	void remove_elem(); // remove an element from the array 
-	void insert_element_ar(T elem, int slot); // add element to array, to certian slot of array
-	void intialize(); // intialize array
-	void intialize_node_array();
-	void add_node_array(Node<T>& n1);
-	void display_node_array(Node<T>& n1);
+	void insert_element_ar(); // add element to array, to certian slot of array
+	void intialize(int size); // intialize array
+	void intialize_node_array(int size);
+	void add_node_array();
+	void display_node_array();
 	void display(); // display the array
 	~Array() { delete []ar; }; // deconstructor
 	
@@ -55,7 +55,6 @@ template<class T>
 class Node
 {
 	friend class Array<T>;
-	//Array<T>**node_array;
 private:
 
 	Node<T>* prev;
@@ -63,8 +62,8 @@ private:
 	T element;
 	Node<T>* begin; // root node
 public:
-	Node() { prev = NULL; next = NULL; element = NULL;  };
-	Node<T>* add_Node();
+	Node() { prev = NULL; next = NULL; element = NULL; begin = NULL; };
+	void add_Node();
 	void display_Nodes();
 	void remove_Node();
 	
@@ -84,7 +83,7 @@ void Node<T>::remove_Node()
 	
 	while (finder->element != elem)
 	{
-		cout << "enter 0";
+		//cout << "enter 0";
 		finder = finder-> next;
 	}
 	
@@ -112,42 +111,43 @@ void Node<T>::display_Nodes()
 {
 	//cout << "entered";
 	Node<T>* mover = begin;
-	cout << "First Node: " << begin->element << endl;
-	mover = mover->next;
-	cout << endl;
-	while (mover != NULL)
+	if (begin->next == NULL) 
 	{
+		cout << "First Node: " << begin->element << endl;
+		cout << endl;
+		return;
+	}
+	
+	cout << "First Node: " << begin->element << endl;
+	while (mover ->next!= NULL)
+	{
+		mover = mover->next;
 		cout << "Previous node: " << mover->prev->element << endl;
 		cout << "Current node: " << mover->element << endl;
 		//cout << "Next node: " << mover->next->element << endl;
 		cout << endl; 
 
-		mover = mover->next;
 	}
+	
 }
 
 template<class T> 
-Node<T>* Node<T>::add_Node()
+void Node<T>::add_Node()
 {
 	T elem;
 	cout << "What element should this node hold?" << endl;
 	cin >> elem; 
 	Node<T>* new_node = new Node<T>;
 	new_node->element = elem; 
-
+	new_node->next = NULL;
 	if (begin == NULL)
 	{
 		new_node->prev = NULL;
-		new_node->next = NULL;
 		begin = new_node;
-		/*
-		//begin->prev = NULL; 
-		begin->element = new_node->element; // this wasn't working before because it HAS TO POINT TO A MEMORY LOCATION
-		begin->next = NULL;
-		*/
-		return begin;
+		
+		return;
 	}
-	/* For line 82
+	/*
 	Pointers refer to a location in memory(RAM).When you have a null pointer it is pointing to null, 
 	meaning that it isn't pointing to location in memory. As long as a pointer is null it can't be used to store any information, 
 	as there is no memory backing it up.
@@ -160,33 +160,25 @@ Node<T>* Node<T>::add_Node()
 	}
 	tracker->next = new_node;
 	new_node->prev = tracker;
-	return tracker->next;
+	
 }
 // This function intializes the array 
 template<class T>
-void Array <T>::intialize()
+void Array <T>::intialize(int size)
 {
-	cout << "How many elements should the array hold?" << endl;
-	cin >> size_ar; // from user input
-	num_elem = size_ar;
+	size_ar = size;
+	num_elem = size_ar; // user input
 	ar = new T[size_ar];
 
-	for (int i = 0; i < size_ar; i++)
-	{
-		T elem; 
-		cout << "What element would you like to insert at slot " << i << ": ";
-		cin >> elem;
-		insert_element_ar(elem,i);
-	}
 }
 
 template <class T>
-void::Array <T>::intialize_node_array()
+void::Array <T>::intialize_node_array(int size)
 {
-	cout << "How many elements should the array hold?" << endl;
-	cin >> size_ar; // from user input
+	
+	size_ar = size;
 	num_elem = size_ar;
-	Node<T>**ar = new Node<T>*[size_ar];
+	Node<T>* *ar = new Node<T>*[size_ar];
 	for (int i = 0; i < size_ar; i++)
 	{
 		ar[i] = NULL;
@@ -195,53 +187,44 @@ void::Array <T>::intialize_node_array()
 }
 
 template <class T>
-void::Array<T>::add_node_array(Node<T>& n1)
+void::Array<T>::add_node_array()
 {
 	int slot = 0;
-	cout << "What slot do you want to insert in?" << endl;
+	cout << "What slot in the array do you want to insert in?" << endl;
 	cin >> slot;
-	while (slot < 0 || slot > size_ar)
+	while (slot <= 0 || slot > size_ar)
 	{
 		cout << "The slot in which you want to insert the element does not exist, enter in another slot: ";
 		cin >> slot;
 	}
-	
-	
-
-	/*
-	Node<T>* tracker = begin;
-	while (tracker->next != NULL)
-	{
-		tracker = tracker->next;
-	}
-	tracker->next = new_node;
-	new_node->prev = tracker;
-	return tracker;
-	*/
-	//n1.begin = array_nodes[slot];
-
-	/*
+	T elem;
+	cout << "What element do you want to insert?:" << endl;
+	cin >> elem;
+	slot = slot - 1;
+	Node<T>* el = new Node<T>;
+	el->element = elem;
+	el->next = NULL;
 	if (array_nodes[slot] == NULL)
 	{
-		n1.begin = array_nodes[slot];
-		array_nodes[slot]= n1.add_Node();
-		array_nodes[slot]->next = NULL;
-		array_nodes[slot]->prev = NULL;
-	}
-	*/
-	if (array_nodes[slot] == NULL)
-	{
-		array_nodes[slot] = n1.add_Node();
+		el->prev = NULL;
+		array_nodes[slot] = el;
 	}
 
-	else 
+	else
 	{
-		array_nodes[slot]->next = n1.add_Node();	
+		Node<T>* tracker = array_nodes[slot];
+		while (tracker->next != NULL)
+		{
+			tracker = tracker->next;
+		}
+		tracker->next = el;
+		el->prev = tracker;
 	}
+	
 
 }
 template <class T>
-void Array<T>::display_node_array(Node<T>& n1)
+void Array<T>::display_node_array()
 {
 	for (int i = 0; i < size_ar; i++)
 	{
@@ -259,13 +242,23 @@ void Array<T>::display_node_array(Node<T>& n1)
 
 // this function inserts the element into the array at a specific spot
 template<class T>
-void Array<T>:: insert_element_ar(T elem, int slot)
+void Array<T>:: insert_element_ar()
 {
-	while (slot < 0 || slot > size_ar)
+
+	int slot;
+	cout << "What slot in the array would you like to insert?:" << endl;
+	cin >> slot;
+
+	while (slot <= 0 || slot > size_ar)
 	{
 		cout << "The slot in which you want to insert the element does not exist, enter in another slot: ";
 		cin >> slot;
 	}
+	slot = slot - 1;
+	T elem;
+	cout << "What element would you like to insert?" << endl;
+	cin >> elem;
+
 	ar[slot] = elem;
 }
 
@@ -286,7 +279,7 @@ void Array<T>::display()
 template <class T>
 ostream& operator<< (ostream& o, const Array<T>& ar)
 {
-	cout << "The array size is: " << ar.size_ar << endl;
+	cout << "The array size is: " << ar.num_elem << endl;
 	cout << "The elements in the array are: ";
 	for (int i = 0; i < ar.num_elem; i++)
 	{
@@ -302,19 +295,21 @@ void Array<T>::remove_elem()
 	T elem;
 	cout << "The current elements in the array are: "; 
 	display();
-	cout << ". Which element would you like to remove (type in the element itself not the slot it's located at): " << endl;
+	cout << ". Which element would you like to remove \n (type in the element itself not the slot it's located at): " << endl;
 	cin >> elem;
 
+	T temp;
 	for (int i = 0; i < num_elem; i++)
 	{
 		if (ar[i] == elem)
 		{
-			ar[num_elem] = ar[i]; // take the element that wants to be removed and puts it at the end of the array
+			temp = ar[i]; // take the element that wants to be removed and puts it at the end of the array
 			num_elem--; // decreases the number of elements so that element can't be accessed anymore
 			for (int j = i; j < num_elem; j++) // j starts at where the element is found and shifts the rest of the elements 
 			{
 				ar[j] = ar[j + 1];
 			}
+			ar[num_elem + 1] = temp;
 			cout << "The array is now: ";
 			display();
 			return;
