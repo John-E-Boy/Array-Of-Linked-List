@@ -1,6 +1,7 @@
 // Jonathan Essapour
 // General goal: build arrays, linked lists, and mesh them together.
-#include "Header.h"
+#include "Node.h"
+#include "Array.h"
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -14,6 +15,7 @@ int main()
 
 
 	
+	/*
 	cout << "Part 1: Basic Array" << endl;
 	int size = 0;
 	cout << "How many elements should the basic array store?:";
@@ -41,7 +43,6 @@ int main()
 		n.add_Node();
 	}
 	n.remove_Node();
-	
 
 
 
@@ -55,6 +56,7 @@ int main()
 		ar.add_node_array();
 	}
     ar.display_node_array();
+	*/
 	
 
 	return 0;
