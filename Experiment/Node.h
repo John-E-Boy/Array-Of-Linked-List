@@ -27,13 +27,13 @@ class Node
 	friend class Array<T>;
 private:
 
-	Node<T>* prev;
-	Node<T>* next;
-	T element;
+	Node<T>* prev; // point to previous memory location
+	Node<T>* next; // point to next memory location
+	T element; // hold the data
 	Node<T>* begin; // root node
 public:
 	Node() { prev = NULL; next = NULL; element = NULL; begin = NULL; };
-	void add_Node();
+	void add_Node(T elem);
 	void display_Nodes();
 	void remove_Node();
 	
@@ -102,11 +102,13 @@ void Node<T>::display_Nodes()
 }
 
 template<class T> 
-void Node<T>::add_Node()
+void Node<T>::add_Node(T elem)
 {
+	/*
 	T elem;
 	cout << "What element should this node hold?" << endl;
 	cin >> elem; 
+	*/
 	Node<T>* new_node = new Node<T>;
 	new_node->element = elem; 
 	new_node->next = NULL;

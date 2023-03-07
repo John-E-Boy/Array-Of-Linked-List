@@ -17,23 +17,28 @@ int main()
 	
 	/*
 	cout << "Part 1: Basic Array" << endl;
-	int size = 0;
-	cout << "How many elements should the basic array store?:";
-	cin >> size;
+	int size = 10;
+	cout << "The capacity of the array intialized is 10.";
 	cout << endl;
 	ar.intialize(size);
-	for (int i = 0; i < size; i++)
-	{
-		ar.insert_element_ar();
-	}
+	
+	ar.insert_element_ar(0,5);
+	ar.insert_element_ar(1,43);
+	ar.insert_element_ar(2,23);
+	ar.insert_element_ar(3,78);
+	ar.insert_element_ar(4,90);
+	ar.insert_element_ar(5,22);
+	ar.insert_element_ar(6,116);
+	ar.insert_element_ar(7,9);
+	ar.insert_element_ar(8,18);
+	ar.insert_element_ar(9,67);
 	cout << endl;
 	ar.remove_elem();
 	cout << endl;
 	ar.display();
 	cout << endl;
 	cout << ar;
-	
-
+	*/
 	int n_size = 0;
 	cout << "Part 2: Basic Linked List" << endl;
 	cout << "How long do you want your list to be?:";
@@ -45,7 +50,7 @@ int main()
 	n.remove_Node();
 
 
-
+	/*
 	cout << "Part 3: Array of Linked Lists" << endl;
 	int ar_n_size = 0;
 	cout << "How many elements should the array hold?" << endl;
