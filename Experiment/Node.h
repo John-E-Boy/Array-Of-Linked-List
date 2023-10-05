@@ -35,17 +35,15 @@ public:
 	Node() { prev = NULL; next = NULL; element = NULL; begin = NULL; };
 	void add_Node(T elem);
 	void display_Nodes();
-	void remove_Node();
+	void remove_Node(T elem);
 	
 };
 
 template<class T>
-void Node<T>::remove_Node()
+void Node<T>::remove_Node(T elem)
 {
-	T elem;
 	display_Nodes();
-	cout << "Which element would you like to remove from the linked list?" << endl;
-	cin >> elem;
+	cout << "Which element would you like to remove from the linked list?: " << elem << endl;
 
 	Node<T>* finder ;
 	finder = begin;

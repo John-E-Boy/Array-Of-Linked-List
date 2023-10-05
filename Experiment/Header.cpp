@@ -10,44 +10,24 @@ int main()
 
 {
 	// declare class objects
-	Array<int> ar;
 	Node<int> n;
 
 
-	
-	/*
-	cout << "Part 1: Basic Array" << endl;
-	int size = 10;
-	cout << "The capacity of the array intialized is 10.";
-	cout << endl;
-	ar.intialize(size);
-	
-	ar.insert_element_ar(0,5);
-	ar.insert_element_ar(1,43);
-	ar.insert_element_ar(2,23);
-	ar.insert_element_ar(3,78);
-	ar.insert_element_ar(4,90);
-	ar.insert_element_ar(5,22);
-	ar.insert_element_ar(6,116);
-	ar.insert_element_ar(7,9);
-	ar.insert_element_ar(8,18);
-	ar.insert_element_ar(9,67);
-	cout << endl;
-	ar.remove_elem();
-	cout << endl;
-	ar.display();
-	cout << endl;
-	cout << ar;
-	*/
-	int n_size = 0;
+	int n_size = 10;
 	cout << "Part 2: Basic Linked List" << endl;
 	cout << "How long do you want your list to be?:";
-	cin >> n_size;
+	cout << n_size;
+	cout << endl;
 	for (int i = 0; i < n_size; i++)
 	{
-		n.add_Node();
+		int elem;
+		elem = i;
+		cout << elem << " being inserted" << endl;
+		n.add_Node(elem);
 	}
-	n.remove_Node();
+	n.remove_Node(5);
+	n.remove_Node(0);
+	n.remove_Node(9);
 
 
 	/*
