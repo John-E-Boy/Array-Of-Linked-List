@@ -10,7 +10,8 @@ int main()
 
 {
 	Array<int> a;
-
+	a.intialize_node_array(5); // intialize to 5 for hold test scores for A, B, C, D, and F
+	a.add_node_array
 	
 	return 0;
 }

@@ -76,8 +76,11 @@ template <class T>
 void::Array<T>::add_node_array()
 {
 	int slot = 0;
-	cout << "What slot in the array do you want to insert in?" << endl;
-	cin >> slot;
+	int test_score = 0;
+	cout << "What's the test score?" << endl;
+	cin >> test_score;
+
+
 	while (slot <= 0 || slot > size_ar) // if user input is over or under array capacity
 	{
 		cout << "The slot in which you want to insert the element does not exist, enter in another slot: ";
