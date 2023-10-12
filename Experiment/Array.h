@@ -41,7 +41,7 @@ public:
 	void insert_element_ar(int slot,T elem); // add element to array, to certian slot of array
 	void intialize(int size); // intialize array
 	void intialize_node_array(int size); // intializenode array
-	void add_node_array(); // add to array of linked list
+	void add_test_score(); // add to array of linked list
 	void display_node_array(); // display array of linked list
 	void display(); // display the array
 	~Array() { delete[]ar; }; // deconstructor
@@ -73,23 +73,36 @@ void::Array <T>::intialize_node_array(int size)
 
 // This function adds another element to the linked list array
 template <class T>
-void::Array<T>::add_node_array()
+void::Array<T>::add_test_score()
 {
 	int slot = 0;
 	int test_score = 0;
 	cout << "What's the test score?" << endl;
 	cin >> test_score;
 
-
-	while (slot <= 0 || slot > size_ar) // if user input is over or under array capacity
+	if (test_score >= 90) // A or above
 	{
-		cout << "The slot in which you want to insert the element does not exist, enter in another slot: ";
-		cin >> slot;
+		slot = 0;
+	}
+	else if (test_score < 90 && test_score >= 80) // B
+	{
+		slot = 1;
+	}
+	else if (test_score < 80 && test_score >= 70) // C
+	{
+		slot = 2;
+	}
+	else if (test_score < 70 && test_score >= 60) // D
+	{
+		slot = 3;
+	} 
+	else // F  
+	{
+		slot = 4;
 	}
 	T elem;
 	cout << "What element do you want to insert?:" << endl; // ask user for input
 	cin >> elem; // user input
-	slot = slot - 1; // this done acting off the assumption that the user doesn't know that arrays have a "zero" slot, so if they enter one, then the input will actually go into ar[0]
 	Node<T>* el = new Node<T>; // create new node
 	el->element = elem; // set element equal to user input
 	el->next = NULL; // if the element is the first in the list then set its next pointer to NULL
@@ -110,6 +123,14 @@ void::Array<T>::add_node_array()
 		el->prev = tracker; // connect new elements prev pointer to the previous element
 	}
 
+	/* legacy code that I dont want to delete in case i want to rework the project back to its original state
+	slot = slot - 1; // this done acting off the assumption that the user doesn't know that arrays have a "zero" slot, so if they enter one, then the input will actually go into ar[0]
+	while (slot <= 0 || slot > size_ar) // if user input is over or under array capacity
+	{
+		cout << "The slot in which you want to insert the element does not exist, enter in another slot: ";
+		cin >> slot;
+	}
+	*/
 
 }// this function will display the array of linked lists
 template <class T>
