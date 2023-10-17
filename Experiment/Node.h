@@ -33,7 +33,7 @@ private:
 	Node<T>* begin; // root node
 public:
 	Node() { prev = NULL; next = NULL; element = NULL; begin = NULL; };
-	void add_Node(T elem);
+	void add_Node();
 	void display_Nodes();
 	void remove_Node();
 	
@@ -42,9 +42,9 @@ public:
 template<class T>
 void Node<T>::remove_Node()
 {
-	T elem;
 	display_Nodes();
-	cout << "Which element would you like to remove from the linked list?" << endl;
+	T elem;
+	cout << "Which element would you like to remove from the linked list?: " << endl;
 	cin >> elem;
 
 	Node<T>* finder ;
@@ -102,13 +102,11 @@ void Node<T>::display_Nodes()
 }
 
 template<class T> 
-void Node<T>::add_Node(T elem)
+void Node<T>::add_Node()
 {
-	/*
 	T elem;
 	cout << "What element should this node hold?" << endl;
 	cin >> elem; 
-	*/
 	Node<T>* new_node = new Node<T>;
 	new_node->element = elem; 
 	new_node->next = NULL;

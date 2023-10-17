@@ -40,7 +40,7 @@ public:
 	void remove_elem(); // remove an element from the array 
 	void insert_element_ar(int slot,T elem); // add element to array, to certian slot of array
 	void intialize(int size); // intialize array
-	void intialize_node_array(int size); // intializenode array
+	void intialize_node_array(); // intializenode array
 	void add_node_array(); // add to array of linked list
 	void display_node_array(); // display array of linked list
 	void display(); // display the array
@@ -58,11 +58,11 @@ void Array <T>::intialize(int size)
 }
 // This function intializes the linked lists array
 template <class T>
-void::Array <T>::intialize_node_array(int size)
+void::Array <T>::intialize_node_array()
 {
-
+	cout << "How big do you want your array of linked list to be?" << endl;
 	size_ar = size; // capacity of array
-	num_elem = size_ar; 
+	num_elem = size_ar; // current actual space taken up in the array
 	Node<T>* *ar = new Node<T>*[size_ar]; //Well, if a regular pointer is to refer to an object in memory, then a double pointer is a variable that points to another pointer which in turn, points to an object in memory.
 	for (int i = 0; i < size_ar; i++) // Each slot is set to NULL
 	{
@@ -78,15 +78,18 @@ void::Array<T>::add_node_array()
 	int slot = 0;
 	cout << "What slot in the array do you want to insert in?" << endl;
 	cin >> slot;
+	
+	slot = slot - 1; // this done acting off the assumption that the user doesn't know that arrays have a "zero" slot, so if they enter one, then the input will actually go into ar[0]
 	while (slot <= 0 || slot > size_ar) // if user input is over or under array capacity
 	{
 		cout << "The slot in which you want to insert the element does not exist, enter in another slot: ";
 		cin >> slot;
 	}
+
 	T elem;
 	cout << "What element do you want to insert?:" << endl; // ask user for input
 	cin >> elem; // user input
-	slot = slot - 1; // this done acting off the assumption that the user doesn't know that arrays have a "zero" slot, so if they enter one, then the input will actually go into ar[0]
+
 	Node<T>* el = new Node<T>; // create new node
 	el->element = elem; // set element equal to user input
 	el->next = NULL; // if the element is the first in the list then set its next pointer to NULL
@@ -106,9 +109,8 @@ void::Array<T>::add_node_array()
 		tracker->next = el; // add the new element
 		el->prev = tracker; // connect new elements prev pointer to the previous element
 	}
-
-
-}// this function will display the array of linked lists
+}
+// this function will display the array of linked lists
 template <class T>
 void Array<T>::display_node_array()
 {
@@ -205,5 +207,7 @@ void Array<T>::remove_elem()
 	}
 
 }
+
+
 #endif
 
