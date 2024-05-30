@@ -33,12 +33,23 @@ private:
 	Node<T>* begin; // root node
 public:
 	Node() { prev = NULL; next = NULL; element = NULL; begin = NULL; };
+	~Node(); // Destructor
+
 	void add_Node();
 	void display_Nodes();
 	void remove_Node();
 	
 };
-
+// Destructor to delete all nodes and free memory
+template<class T>
+Node<T>::~Node() {
+	Node<T>* current = begin;
+	while (current != NULL) {
+		Node<T>* nextNode = current->next;
+		delete current;
+		current = nextNode;
+	}
+}
 template<class T>
 void Node<T>::remove_Node()
 {

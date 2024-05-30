@@ -44,7 +44,7 @@ public:
 	void add_node_array(); // add to array of linked list
 	void display_node_array(); // display array of linked list
 	void display(); // display the array
-	~Array() { delete[]ar; }; // deconstructor
+	~Array(); // deconstructor
 
 };
 // This function intializes the array 
@@ -55,6 +55,20 @@ void Array <T>::intialize(int size)
 	num_elem = size_ar; // user input
 	ar = new T[size_ar]; // new dynamic array
 
+}
+
+
+template<class T>
+Array<T>::~Array() {
+	if (ar != nullptr) {
+		delete[] ar;
+	}
+	if (array_nodes != nullptr) {
+		for (int i = 0; i < size_ar; i++) {
+			delete array_nodes[i];
+		}
+		delete[] array_nodes;
+	}
 }
 // This function intializes the linked lists array
 template <class T>
